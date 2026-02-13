@@ -10,8 +10,9 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
+
 /**
- * Handles global hotkeys for encrypting (CTRL+Y) and decrypting (CTRL+U) selected text using clipboard operations.
+ * Handles global hotkeys for encrypting (CTRL+E) and decrypting (CTRL+D) selected text using clipboard operations.
  */
 public class HotkeyHandler implements NativeKeyListener {
     private SecretKey currentSecretKey;
@@ -34,7 +35,7 @@ public class HotkeyHandler implements NativeKeyListener {
     }
 
     /**
-     * Intercepts global key presses and triggers encryption (CTRL+Y) or decryption (CTRL+U) of selected text.
+     * Intercepts global key presses and triggers encryption (CTRL+E) or decryption (CTRL+D) of selected text.
      */
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
@@ -44,12 +45,12 @@ public class HotkeyHandler implements NativeKeyListener {
 
         var isCtrlPressed = (e.getModifiers() & NativeKeyEvent.CTRL_MASK) != 0;
 
-        // CTRL + Y to Encrypt
-        if (isCtrlPressed && e.getKeyCode() == NativeKeyEvent.VC_Y) {
+        // CTRL + E to Encrypt
+        if (isCtrlPressed && e.getKeyCode() == NativeKeyEvent.VC_E) {
             handleTextTransformation(true);
         }
-        // CTRL + U to Decrypt
-        else if (isCtrlPressed && e.getKeyCode() == NativeKeyEvent.VC_U) {
+        // CTRL + D to Decrypt
+        else if (isCtrlPressed && e.getKeyCode() == NativeKeyEvent.VC_D) {
             handleTextTransformation(false);
         }
     }

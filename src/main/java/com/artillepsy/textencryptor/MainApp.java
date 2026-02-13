@@ -94,9 +94,11 @@ public class MainApp {
         var label = new JLabel("Secret Key:");
         var passwordField = new JPasswordField(20);
         var submitButton = getJButton(passwordField);
+        var hotkeyLabel = new JLabel("Ctrl + E to encrypt | Ctrl + D to decrypt");
 
         // Layout Assembly
-        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         frame.add(label, gbc);
 
         gbc.gridy = 1;
@@ -104,6 +106,9 @@ public class MainApp {
 
         gbc.gridy = 2;
         frame.add(submitButton, gbc);
+
+        gbc.gridy = 3;
+        frame.add(hotkeyLabel, gbc);
 
         frame.setLocationRelativeTo(null); // Center on screen
         frame.setVisible(true);
