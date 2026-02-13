@@ -4,6 +4,7 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,6 +78,7 @@ public class MainApp {
 
             var image = Toolkit.getDefaultToolkit().createImage(new byte[0]);
 
+
             var popup = new PopupMenu();
             var showItem = new MenuItem("Open Settings");
             showItem.addActionListener(e -> frame.setVisible(true));
@@ -94,6 +96,15 @@ public class MainApp {
             var trayIcon = new TrayIcon(image, "Text Encryptor", popup);
             trayIcon.setImageAutoSize(true);
             tray.add(trayIcon);
+
+            trayIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    if (e.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                        frame.setVisible(true);
+                    }
+                }
+            });
         }
         catch (AWTException e) {
             System.err.println("Tray icon could not be added.");
@@ -106,8 +117,10 @@ public class MainApp {
     private void createAndShowGUI() {
         frame = new JFrame("Text Encryptor Settings");
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // Hide instead of exit
-        frame.setSize(300, 200);
+        frame.setSize(300, 250);
+        frame.setResizable(false);
         frame.setLayout(new GridBagLayout());
+        
 
         var gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -119,7 +132,15 @@ public class MainApp {
         var label = new JLabel("Secret Key:");
         var passwordField = new JPasswordField(savedKey,20);
         var submitButton = getJButton(passwordField);
+        var clearButton = new JButton("Clear Clipboard");
+
         var hotkeyLabel = new JLabel("Ctrl + E to encrypt | Ctrl + D to decrypt");
+        clearButton.setBackground(new Color(255, 200, 200)); // Light red to indicate "action"
+
+        clearButton.addActionListener(e -> {
+            clearClipboard();
+            clearWindowsHistory();
+        });
 
         // Layout Assembly
         gbc.gridx = 0;
@@ -132,7 +153,10 @@ public class MainApp {
         gbc.gridy = 2;
         frame.add(submitButton, gbc);
 
-        gbc.gridy = 3;
+        gbc.gridy = 3; // Assuming your last element was at 3
+        frame.add(clearButton, gbc);
+
+        gbc.gridy = 4;
         frame.add(hotkeyLabel, gbc);
 
         frame.setLocationRelativeTo(null); // Center on screen
@@ -165,5 +189,26 @@ public class MainApp {
             }
         });
         return submitButton;
+    }
+
+    private void clearClipboard() {
+        try {
+            var emptySelection = new StringSelection("");
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(emptySelection, null);
+            // Optional: show a small visual confirmation
+            System.out.println("Clipboard cleared.");
+        } catch (Exception e) {
+            System.err.println("Failed to clear clipboard: " + e.getMessage());
+        }
+    }
+
+    private void clearWindowsHistory() {
+        try {
+            // This command specifically targets the WinRT Clipboard History clear method
+            String command = "powershell.exe -Command \"[Windows.ApplicationModel.DataTransfer.Clipboard, Windows.ApplicationModel.DataTransfer, ContentType=WindowsRuntime]::ClearHistory()\"";
+            Runtime.getRuntime().exec(command);
+        } catch (Exception e) {
+            System.err.println("Failed to clear Windows history: " + e.getMessage());
+        }
     }
 }
