@@ -1,8 +1,11 @@
 # Text Encryptor
 
+
+
 ## Table of Contents
 
 - [Features](#features)
+- [Releases](#releases)
 - [How to Use](#how-to-use)
 - [Stack](#stack)
 - [Building the Project](#building-the-project)
@@ -22,6 +25,14 @@ on your system using global hotkeys. The application lives in the system tray an
 * Secure Encryption: Uses AES/GCM/NoPadding with keys derived via PBKDF2.
 * System Tray Integration: Runs quietly in the background without cluttering your taskbar.
 * Portable: Can be bundled with its own Java Runtime (JRE).
+
+---
+
+## Releases
+
+To download the latest version of Text Encryptor, check the releases page:
+
+https://github.com/artillepsy/text-encryptor/releases
 
 ---
 
