@@ -85,7 +85,7 @@ Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue; jpackage `
   --dest dist `
   --name "TextEncryptor" `
   --input target `
-  --main-jar text-encryptor-1.2.0.jar `
+  --main-jar text-encryptor-1.3.0.jar `
   --main-class com.artillepsy.textencryptor.MainApp `
   --java-options "--enable-native-access=ALL-UNNAMED"
 ```
