@@ -8,6 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainApp {
+    private static java.net.ServerSocket lockSocket;
+
     private JFrame frame;
     private HotkeyHandler hotkeyHandler;
 
@@ -22,10 +24,31 @@ public class MainApp {
         }
     }
 
+
+    /**
+     * Checks if this is the only running instance of the application by attempting to bind to port 9999.
+     */
+    private static boolean isSingleInstance() {
+        try {
+            // Attempt to bind to a specific local port
+            lockSocket = new java.net.ServerSocket(9999);
+            return true;
+        } catch (java.io.IOException e) {
+            // Port is already in use, meaning another instance is running
+            return false;
+        }
+    }
+
     /**
      * Entry point that initializes the application on the Swing Event Dispatch Thread.
      */
     public static void main(String[] args) {
+        if (!isSingleInstance()) {
+            // Optional: Bring the existing window to front (requires more complex logic)
+            JOptionPane.showMessageDialog(null, "Text Encryptor is already running!");
+            System.exit(0);
+        }
+
         // Swing must run on the Event Dispatch Thread
         SwingUtilities.invokeLater(MainApp::new);
     }
