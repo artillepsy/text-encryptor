@@ -83,7 +83,7 @@ public class MainApp {
     private void createAndShowGUI() {
         frame = new JFrame("Text Encryptor Settings");
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // Hide instead of exit
-        frame.setSize(400, 200);
+        frame.setSize(300, 200);
         frame.setLayout(new GridBagLayout());
 
         var gbc = new GridBagConstraints();
@@ -124,7 +124,7 @@ public class MainApp {
         submitButton.addActionListener(e -> {
             String password = new String(passwordField.getPassword());
             if (password.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Provide a password");
+                JOptionPane.showMessageDialog(frame, "The field is empty. Provide a password");
                 return;
             }
 
