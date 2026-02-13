@@ -67,12 +67,12 @@ This bundles a stripped-down JRE into the folder.
 Run the following command in your terminal after building the Fat JAR:
 
 ```bash
-jpackage `
+Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue; jpackage `
   --type app-image `
   --dest dist `
   --name "TextEncryptor" `
   --input target `
-  --main-jar text-encryptor-1.0-SNAPSHOT.jar `
+  --main-jar text-encryptor-1.1.0.jar `
   --main-class com.artillepsy.textencryptor.MainApp `
   --java-options "--enable-native-access=ALL-UNNAMED"
 ```
