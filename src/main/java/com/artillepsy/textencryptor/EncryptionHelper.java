@@ -49,7 +49,7 @@ public class EncryptionHelper {
 
         ByteBuffer bb = ByteBuffer.allocate(iv.length + cipherText.length);
         bb.put(iv).put(cipherText);
-        return Base64.getEncoder().encodeToString(bb.array());
+        return Base64.getEncoder().withoutPadding().encodeToString(bb.array());
     }
 
 
