@@ -113,9 +113,11 @@ public class MainApp {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        var savedKey = ConfigHelper.loadKeyphrase();
+
         // Components
         var label = new JLabel("Secret Key:");
-        var passwordField = new JPasswordField(20);
+        var passwordField = new JPasswordField(savedKey,20);
         var submitButton = getJButton(passwordField);
         var hotkeyLabel = new JLabel("Ctrl + E to encrypt | Ctrl + D to decrypt");
 
@@ -152,6 +154,7 @@ public class MainApp {
             }
 
             try {
+                ConfigHelper.saveKeyphrase(password);
                 hotkeyHandler.setSecretKey(EncryptionHelper.createKey(password));
 
                 // Hide window and show a notification
