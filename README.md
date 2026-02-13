@@ -25,6 +25,7 @@ on your system using global hotkeys. The application lives in the system tray an
 * Secure Encryption: Uses AES/GCM/NoPadding with keys derived via PBKDF2.
 * System Tray Integration: Runs quietly in the background without cluttering your taskbar.
 * Portable: Can be bundled with its own Java Runtime (JRE).
+* Persistent Storage: Stores your keyphrase in an encrypted file across sessions for convenience.
 
 ---
 
