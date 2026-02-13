@@ -4,7 +4,6 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,11 +22,17 @@ public class MainApp {
         }
     }
 
+    /**
+     * Entry point that initializes the application on the Swing Event Dispatch Thread.
+     */
     public static void main(String[] args) {
         // Swing must run on the Event Dispatch Thread
         SwingUtilities.invokeLater(MainApp::new);
     }
 
+    /**
+     * Registers native keyboard hook to capture global hotkey events.
+     */
     private void setupGlobalHook() throws Exception {
         var logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
         logger.setLevel(Level.OFF);
@@ -36,6 +41,9 @@ public class MainApp {
         GlobalScreen.addNativeKeyListener(hotkeyHandler);
     }
 
+    /**
+     * Creates system tray icon with popup menu for opening settings and exiting the application.
+     */
     private void setupSystemTray() {
         if (!SystemTray.isSupported()) {
             return;
@@ -69,6 +77,9 @@ public class MainApp {
         }
     }
 
+    /**
+     * Constructs and displays the main settings window with password input field.
+     */
     private void createAndShowGUI() {
         frame = new JFrame("Text Encryptor Settings");
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // Hide instead of exit
@@ -98,6 +109,9 @@ public class MainApp {
         frame.setVisible(true);
     }
 
+    /**
+     * Creates submit button that derives encryption key from password and hides the settings window.
+     */
     private JButton getJButton(JPasswordField passwordField) {
         var submitButton = new JButton("Set Key & Minimize to Tray");
 
