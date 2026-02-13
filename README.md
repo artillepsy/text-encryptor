@@ -26,6 +26,7 @@ on your system using global hotkeys. The application lives in the system tray an
 * System Tray Integration: Runs quietly in the background without cluttering your taskbar.
 * Portable: Can be bundled with its own Java Runtime (JRE).
 * Persistent Storage: Stores your keyphrase in an encrypted file across sessions for convenience.
+* Clipboard Management: Clear clipboard and Windows clipboard history after encryption/decryption operations.
 
 ---
 
